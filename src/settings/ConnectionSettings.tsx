@@ -188,9 +188,6 @@ export class ConnectionSettings extends React.PureComponent<Props, State> {
 
     const result = await testConnection(settings);
 
-    this.setState({
-      loginStatus: result,
-    });
     this.setSetting("otpCode", "");
 
     if (!ClientRequestResult.isConnectionFailure(result) && result.success) {
@@ -204,5 +201,9 @@ export class ConnectionSettings extends React.PureComponent<Props, State> {
     } else {
       this.setSetting("deviceId", "");
     }
+
+    this.setState({
+      loginStatus: result,
+    });
   };
 }
