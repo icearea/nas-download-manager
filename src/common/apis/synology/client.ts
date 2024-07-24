@@ -38,8 +38,9 @@ const SETTING_NAME_KEY_FLAGS = {
   device_name: false,
 };
 
-const SETTING_NAME_KEYS =
-  typesafeUnionMembers<keyof SynologyClientSettings>(SETTING_NAME_KEY_FLAGS);
+const SETTING_NAME_KEYS = typesafeUnionMembers<keyof SynologyClientSettings>(
+  SETTING_NAME_KEY_FLAGS,
+);
 
 export type ConnectionFailure =
   | {
