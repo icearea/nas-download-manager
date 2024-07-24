@@ -181,29 +181,26 @@ export class ConnectionSettings extends React.PureComponent<Props, State> {
     });
 
     if (!settings.deviceName) {
-      const deviceName = "device_" + Math.random().toString(36).slice(2, 9);
-      this.setSetting("deviceName", deviceName);
-      settings.deviceName = deviceName;
+      settings.deviceName = "device_" + Math.random().toString(36).slice(2, 9);
     }
 
     const result = await testConnection(settings);
 
-    this.setSetting("otpCode", "");
+    this.setState({
+      loginStatus: result,
+    });
 
     if (!ClientRequestResult.isConnectionFailure(result) && result.success) {
       if (result.data && "did" in result.data) {
         let deviceId = (result.data as { did?: string }).did;
         if (deviceId) {
-          this.setSetting("deviceId", deviceId);
+          settings.deviceId = deviceId;
         }
       }
       this.props.saveConnectionSettings(settings);
     } else {
-      this.setSetting("deviceId", "");
+      settings.deviceId = "";
     }
-
-    this.setState({
-      loginStatus: result,
-    });
+    settings.otpCode = "";
   };
 }
