@@ -116,7 +116,7 @@ export class ConnectionSettings extends React.PureComponent<Props, State> {
             />
             <label htmlFor={checkboxId}>{browser.i18n.getMessage("Remember_Password")}</label>
           </li>
-          
+
           <li className="label-and-input">
             <span className="label">{browser.i18n.getMessage("OTP_Code")}</span>
             <div className="input">
@@ -179,11 +179,11 @@ export class ConnectionSettings extends React.PureComponent<Props, State> {
     this.setState({
       loginStatus: "in-progress",
     });
-    
+
     if (!settings.deviceName) {
-      const deviceName = 'device_' + Math.random().toString(36).slice(2, 9)
+      const deviceName = "device_" + Math.random().toString(36).slice(2, 9);
       this.setSetting("deviceName", deviceName);
-      settings.deviceName = deviceName
+      settings.deviceName = deviceName;
     }
 
     const result = await testConnection(settings);
@@ -194,15 +194,14 @@ export class ConnectionSettings extends React.PureComponent<Props, State> {
     this.setSetting("otpCode", "");
 
     if (!ClientRequestResult.isConnectionFailure(result) && result.success) {
-      if (result.data && 'did' in result.data) {
+      if (result.data && "did" in result.data) {
         let deviceId = (result.data as { did?: string }).did;
         if (deviceId) {
           this.setSetting("deviceId", deviceId);
         }
       }
       this.props.saveConnectionSettings(settings);
-    }
-    else {
+    } else {
       this.setSetting("deviceId", "");
     }
   };

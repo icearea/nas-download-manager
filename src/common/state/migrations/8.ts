@@ -16,36 +16,36 @@ export interface StateVersion {
 }
 
 export interface ConnectionSettings {
-    hostname: string;
-    port: number;
-    username: string;
-    password: string | undefined;
-    rememberPassword: boolean;
-    otpCode: string;
-    deviceId: string;
-    deviceName: string;
-  }
-  
+  hostname: string;
+  port: number;
+  username: string;
+  password: string | undefined;
+  rememberPassword: boolean;
+  otpCode: string;
+  deviceId: string;
+  deviceName: string;
+}
+
 export interface Settings extends OmitStrict<Settings_7, "connection"> {
-    connection: ConnectionSettings;
-  }
-  
-  export interface State extends StateVersion, OmitStrict<State_7, "settings" | "stateVersion"> {
-    settings: Settings;
-  }
-  
+  connection: ConnectionSettings;
+}
+
+export interface State extends StateVersion, OmitStrict<State_7, "settings" | "stateVersion"> {
+  settings: Settings;
+}
+
 export function migrate(state: State_7): State {
-    return {
-      ...state,
-      stateVersion: 8,
-      settings: {
-        ...state.settings,
-        connection: {
-            ...state.settings.connection,
-            otpCode: "",
-            deviceId: "",
-            deviceName: "",
-        },
+  return {
+    ...state,
+    stateVersion: 8,
+    settings: {
+      ...state.settings,
+      connection: {
+        ...state.settings.connection,
+        otpCode: "",
+        deviceId: "",
+        deviceName: "",
       },
-    };
-  }
+    },
+  };
+}

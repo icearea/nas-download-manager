@@ -38,7 +38,8 @@ const SETTING_NAME_KEY_FLAGS = {
   device_name: false,
 };
 
-const SETTING_NAME_KEYS = typesafeUnionMembers<keyof SynologyClientSettings>(SETTING_NAME_KEY_FLAGS);
+const SETTING_NAME_KEYS =
+  typesafeUnionMembers<keyof SynologyClientSettings>(SETTING_NAME_KEY_FLAGS);
 
 export type ConnectionFailure =
   | {
@@ -131,7 +132,7 @@ export class SynologyClient {
       let option: any = {
         ...request,
         ...restSettings,
-        version: 2
+        version: 2,
       };
 
       if (device_id) {
@@ -140,7 +141,7 @@ export class SynologyClient {
         option.version = 6;
       } else if (otp_code) {
         option.otp_code = otp_code;
-        option.enable_device_token = 'yes';
+        option.enable_device_token = "yes";
         option.version = 6;
       }
 
@@ -150,7 +151,7 @@ export class SynologyClient {
           // We'd like to do this with an Info.Query, but DSM 7 erroneously reports that it
           // supports version 2, which it definitely does not.
           if (!response.success && response.error.code === NO_SUCH_METHOD_ERROR_CODE) {
-            option.version = 3
+            option.version = 3;
             return Auth.Login(baseUrl, option);
           } else {
             return response;
