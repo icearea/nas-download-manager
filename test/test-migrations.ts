@@ -764,7 +764,7 @@ describe("state versioning", () => {
     );
   });
 
-  it("should default show-inactive-tasks to true when upgrading from 7 to 8", () => {
+  it("should add 2-FA settings when upgrading from 7 to 8", () => {
     testMigration<State_7, State_8>(
       {
         settings: {
